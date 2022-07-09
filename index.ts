@@ -1,4 +1,7 @@
 import fastify from 'fastify'
+import { MongoClient } from 'mongodb'
+const url = "mongodb://127.0.0.1:27017"
+const Client = new MongoClient(url)
 
 const app = fastify()
 
