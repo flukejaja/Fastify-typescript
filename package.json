@@ -1,0 +1,21 @@
+{
+  "name": "nodejstype",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.0.3",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "fastify": "^4.2.0",
+    "nodemon": "^2.0.19"
+  }
+}
