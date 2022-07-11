@@ -1,5 +1,5 @@
 import { app } from "./Fastify/app";
-import { user, mockup, user1, userMock } from "./db/Mockup";
+import { mockup, userMock } from "./db/Mockup";
 import { register } from "./account/Register";
 import { login } from "./account/Login";
 import { inputdata } from "./account/Inputdata";
