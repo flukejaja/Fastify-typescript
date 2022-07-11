@@ -1,12 +1,14 @@
 import { dbCollection } from "../db/server";
-import { user } from "../db/Mockup";
+import { user, user1, userMock } from "../db/Mockup";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
-export const login = async (body = user) => {
+// var hash = bcrypt.hashSync(password);
+
+export const login = async (body: userMock) => {
   const { username, password } = body;
   const result = await dbCollection.findOne({
     username: username,
-    password: password,
   });
   const payload = { ...result };
   const token = jwt.sign(payload, "hiwkao", { algorithm: "HS256" });
@@ -17,7 +19,9 @@ export const login = async (body = user) => {
   const results = {
     success: true,
     username: username,
+    password: password,
     token: token,
   };
+  console.log("result clone  => ", results);
   return results;
 };

@@ -36,11 +36,15 @@ interface mockupFluck {
   Precision: number;
   Toggle: boolean;
 }
-interface user {
+export interface userMock {
   username: string;
   password: string;
 }
-export const user: user = {
+export const user: userMock = {
   username: "test",
+  password: "1234",
+};
+export const user1: userMock = {
+  username: "test1",
   password: "1234",
 };
