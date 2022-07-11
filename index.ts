@@ -4,6 +4,8 @@ import { register } from "./account/Register";
 import { login } from "./account/Login";
 import { inputdata } from "./account/Inputdata";
 import { verifyMiddleware } from "./src/verifyInterceptor";
+import { dashboard } from "./account/Dashboard";
+app.register(require("@fastify/cors"));
 
 app.post("/login", async (request, reply) => {
   const body = request.body as userMock;
@@ -24,6 +26,15 @@ app.post(
     const body = mockup;
     console.log(body);
     const results = await inputdata(body);
+    reply.send(results);
+  }
+);
+app.get(
+  "/dashboard",
+  { preHandler: [verifyMiddleware] },
+  async (request, reply) => {
+    const body = request.body as userMock;
+    const results = await dashboard(body);
     reply.send(results);
   }
 );
