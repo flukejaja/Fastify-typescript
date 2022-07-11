@@ -1,17 +1,17 @@
 import { app } from "./Fastify/app";
-import { user, mockup, user1 } from "./db/Mockup";
+import { user, mockup, user1, userMock } from "./db/Mockup";
 import { register } from "./account/Register";
 import { login } from "./account/Login";
 import { inputdata } from "./account/Inputdata";
 import { verifyMiddleware } from "./src/verifyInterceptor";
 
 app.post("/login", async (request, reply) => {
-  const body = user1;
+  const body = request.body as userMock;
   const results = await login(body);
   reply.send(results);
 });
 app.post("/register", async (request, reply) => {
-  const body = user;
+  const body = request.body as userMock;
   console.log(body);
   const results = await register(body);
   reply.send(results);
