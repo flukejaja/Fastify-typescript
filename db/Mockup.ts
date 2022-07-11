@@ -1,4 +1,4 @@
-export interface mockupPrame {
+interface mockupPrame {
   itemName: string;
   cateGory: string;
   Description: string;
@@ -7,15 +7,14 @@ export interface mockupPrame {
   myBusiness: boolean;
   locations: boolean;
 }
-export const user1: mockupPrame = {
-  itemName: "stone",
-  cateGory: "stone",
-  Description: "stone",
+export const mockup: mockupPrame = {
+  itemName: "Mockup",
+  cateGory: "test",
+  Description: "test",
   Locations: true,
   myBusiness: false,
-  locations: false,
+  locations: true,
 };
-
 interface mockupTop {
   optionName: string;
   displayName: string;
@@ -37,3 +36,11 @@ interface mockupFluck {
   Precision: number;
   Toggle: boolean;
 }
+interface user {
+  username: string;
+  password: string;
+}
+export const user: user = {
+  username: "test",
+  password: "1234",
+};

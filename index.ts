@@ -1,36 +1,33 @@
-import fastify from "fastify";
-import { dbPrame, dbTop, dbFluke } from "./server";
-import { user1 } from "./Mockup";
+import { app } from "./Fastify/app";
+import { user, mockup } from "./db/Mockup";
+import { register } from "./account/Register";
+import { login } from "./account/Login";
+import { inputdata } from "./account/Inputdata";
+import { verifyMiddleware } from "./src/verifyInterceptor";
 
-const app = fastify();
-
-// const testPrame = async () => {
-//   const db = await dbPrame.find({}).toArray();
-//   console.log("dbPrame Connection = " + JSON.stringify(db));
-// };
-// const testTop = async () => {
-//   const db = await dbTop.find({}).toArray();
-//   console.log("dbTop Connection = " + JSON.stringify(db));
-// };
-
-// const testFluke = async () => {
-//   const db = await dbFluke.find({}).toArray();
-//   console.log("dbFluke Connection = " + JSON.stringify(db));
-// };
-// console.log(testPrame());
-// console.log(testFluke());
-// console.log(testTop());
-
-// app.post("/inSertitem", async (request, reply) => {
-
-//   console.log()
-//   // const db = await dbPrame.insertOne(mockupPrame);
-// });
-
-app.get("/getdb", async (request, reply) => {
-  console.log("Connecting to getdb");
-  reply.send("TestGetDB" + JSON.stringify(user1));
+app.post("/login", async (request, reply) => {
+  const body = user;
+  const results = await login(body);
+  reply.send(results);
 });
+app.post("/register", async (request, reply) => {
+  const body = user;
+  console.log(body);
+  const results = await register(body);
+  reply.send(results);
+});
+
+app.post(
+  "/inputdata",
+  { preHandler: [verifyMiddleware] },
+  async (request, reply) => {
+    const body = mockup;
+    console.log(body);
+    const results = await inputdata(body);
+    reply.send(results);
+  }
+);
+
 app.listen({ port: 5000 }, (err, address) => {
   if (err) {
     console.error(err);
