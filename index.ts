@@ -1,5 +1,5 @@
 import { app } from "./Fastify/app";
-import { mockup, userMock , mockupPrame ,mockupTop , mockupFortop ,Stock ,mockupStock } from "./db/Mockup";
+import { mockup, userMock , mockupFluck ,Fluck , mockupFortop ,Stock ,mockupStock ,mockupPrame,mockupTop } from "./db/Mockup";
 import { register } from "./account/Register";
 import { login } from "./account/Login";
 import { inputdata } from "./account/Inputdata";
@@ -40,7 +40,7 @@ app.get(
   "/dashboard",
   { preHandler: [verifyMiddleware] },
   async (request, reply) => {
-    const body = request.body as userMock;
+    const body = request.body as mockupPrame;
     const results = await dashboard(body);
     reply.send(results);
   }
@@ -79,7 +79,7 @@ app.post(
   "/ShowVariations",
   { preHandler: [verifyMiddleware] },
   async (request, reply) => {
-    const body =  request.body;
+    const body =  request.body as mockupTop;
     console.log("body = ",body);
     const results = await ShowVariation(body);
     console.log(results);
@@ -91,8 +91,7 @@ app.post(
   "/inputAttribute",
   { preHandler: [verifyMiddleware] },
   async (request, reply) => {
-    const body = mockup;
-    console.log(body);
+    const body = Fluck;
     const results = await insertAttribute(body);
     reply.send(results);
   }
@@ -101,7 +100,7 @@ app.post(
   "/showAttribute",
   { preHandler: [verifyMiddleware] },
   async (request, reply) => {
-    const body =  request.body as mockupPrame;
+    const body =  request.body as mockupFluck;
     const results = await showAttribute(body);
     console.log(results);
     reply.send(results);

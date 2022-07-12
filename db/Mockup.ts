@@ -49,7 +49,7 @@ export const Stock:mockupStock = {
   price:1000,
   id:"1"
 } 
-interface mockupFluck {
+export interface mockupFluck {
   attributeName: string;
   Text: string;
   Selecttion: boolean;
@@ -57,6 +57,15 @@ interface mockupFluck {
   Number: number;
   Precision: number;
   Toggle: boolean;
+}
+export const Fluck:mockupFluck = {
+  attributeName: "asdf",
+  Text: "asdff",
+  Selecttion: true,
+  Quantity: false,
+  Number: 1234,
+  Precision: 11332,
+  Toggle: true
 }
 export interface userMock {
   username: string;
