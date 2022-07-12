@@ -12,6 +12,7 @@ import { insertStock } from "./account/inputStock";
 import { editStock } from "./account/editStock";
 import { ShowVariation } from "./account/ShowVariations";
 import { delAttribute } from "./account/delAttribute";
+
 app.register(require("@fastify/cors"));
 
 // Loging - register user
@@ -122,3 +123,14 @@ app.listen({ port: 5000 }, (err, address) => {
   }
   console.log(`Server listening at ${address}`);
 });
+
+import {fs,pump} from './Fastify/app';
+app.register(require('@fastify/multipart'))
+
+app.post('/uploads', async  (req:any, reply:any) => {
+  const data = await req.file()
+  await pump(data.file, fs.createWriteStream(`uploads/${data.filename}`))
+  if(!data){return {message: 'Error uploading file', error: true}}
+  console.log(data.filename)
+  reply.send('Success! import photos')
+})
