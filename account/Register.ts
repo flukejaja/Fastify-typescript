@@ -3,10 +3,10 @@ import { user } from "../db/Mockup";
 import bcrypt from "bcrypt";
 
 export const register = async (body: any) => {
-  const hash = await bcrypt.hash(user.password, 10);
+  const hash = await bcrypt.hash(body.password, 10);
   console.log(hash);
   const result = await dbCollection.insertOne({
-    username: user.username,
+    username: body.username,
     password: hash,
   });
   console.log("result => ", result);
@@ -15,7 +15,7 @@ export const register = async (body: any) => {
   }
   const results = {
     success: true,
-    username: user.username,
+    username: body.username,
     data: result,
   };
   return results;

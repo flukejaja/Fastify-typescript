@@ -1,11 +1,10 @@
 import { dbCollection } from "../db/server";
-import { user, user1, userMock } from "../db/Mockup";
+import { userMock } from "../db/Mockup";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
 export const login = async (body: userMock) => {
   const { username, password } = body;
-
   const result = await dbCollection.findOne({
     username: username,
   });

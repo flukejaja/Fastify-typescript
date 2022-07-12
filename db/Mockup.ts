@@ -1,4 +1,4 @@
-interface mockupPrame {
+export interface mockupPrame {
   itemName: string;
   cateGory: string;
   Description: string;
@@ -15,7 +15,7 @@ export const mockup: mockupPrame = {
   myBusiness: false,
   locations: true,
 };
-interface mockupTop {
+export interface mockupTop {
   optionName: string;
   displayName: string;
   Options: string;
@@ -27,6 +27,28 @@ interface mockupTop {
   manageStock: string;
   Track: string;
 }
+export const mockupFortop: mockupTop={
+  optionName: "test",
+  displayName: "fluke",
+  Options: "test",
+  Variation: "test",
+  Sku: "test",
+  Price: 1000,
+  createMethod: true,
+  addVariations: "foo",
+  manageStock: "foo",
+  Track:  "foo",
+}
+export interface mockupStock {
+  item: string;
+  price: number;
+  id: string;
+}
+export const Stock:mockupStock = {
+  item:"Mouse",
+  price:1000,
+  id:"1"
+} 
 interface mockupFluck {
   attributeName: string;
   Text: string;
