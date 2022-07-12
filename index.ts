@@ -127,10 +127,10 @@ app.listen({ port: 5000 }, (err, address) => {
 import {fs,pump} from './Fastify/app';
 app.register(require('@fastify/multipart'))
 
-app.post('/uploads', async  (req:any, reply:any) => {
+app.post('/uploads',{ preHandler: [verifyMiddleware] },async (req:any, reply:any) => {
   const data = await req.file()
   await pump(data.file, fs.createWriteStream(`uploads/${data.filename}`))
   if(!data){return {message: 'Error uploading file', error: true}}
   console.log(data.filename)
-  reply.send('Success! import photos')
+  reply.send('Success! import photos = '+data.filename)
 })
