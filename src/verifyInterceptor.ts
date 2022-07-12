@@ -1,4 +1,4 @@
-import { FastifyReply, FastifyRequest , FastifyInstance } from "fastify";
+import { FastifyReply, FastifyRequest  } from "fastify";
 import { connect } from "../db/server";
 import jwt from "jsonwebtoken";
 

@@ -11,6 +11,7 @@ import { insertVariation } from "./account/inputVariations";
 import { insertStock } from "./account/inputStock";
 import { editStock } from "./account/editStock";
 import { ShowVariation } from "./account/ShowVariations";
+import { delAttribute } from "./account/delAttribute";
 app.register(require("@fastify/cors"));
 
 // Loging - register user
@@ -45,6 +46,8 @@ app.get(
     reply.send(results);
   }
 );
+
+
 // Top Variations
 app.post(
   "/inputVariations",
@@ -80,12 +83,13 @@ app.post(
   { preHandler: [verifyMiddleware] },
   async (request, reply) => {
     const body =  request.body as mockupStock;
-    console.log("body = ",body);
     const results = await ShowVariation(body);
     console.log(results);
     reply.send(results);
   }
 );
+
+
 // Fluck
 app.post(
   "/inputAttribute",
@@ -106,7 +110,11 @@ app.post(
     reply.send(results);
   }
 );
-
+app.post("/delAttribute", { preHandler: [verifyMiddleware] }, async (request, reply) => {
+    const body = request.body as mockupFluck;
+    const results = await delAttribute(body);
+    reply.send(results);
+});
 app.listen({ port: 5000 }, (err, address) => {
   if (err) {
     console.error(err);
