@@ -1,5 +1,5 @@
 import { app } from "./Fastify/app";
-import { mockup, userMock , mockupFluck ,Fluck , mockupFortop ,Stock ,mockupStock ,mockupPrame,mockupTop } from "./db/Mockup";
+import { mockup, userMock , mockupFluck ,Fluck , mockupFortop ,Stock ,mockupStock ,mockupPrame } from "./db/Mockup";
 import { register } from "./account/Register";
 import { login } from "./account/Login";
 import { inputdata } from "./account/Inputdata";
@@ -76,10 +76,10 @@ app.post(
   }
 );
 app.post(
-  "/ShowVariations",
+  "/showVariations",
   { preHandler: [verifyMiddleware] },
   async (request, reply) => {
-    const body =  request.body as mockupTop;
+    const body =  request.body as mockupStock;
     console.log("body = ",body);
     const results = await ShowVariation(body);
     console.log(results);
