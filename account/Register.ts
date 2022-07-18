@@ -1,5 +1,5 @@
 import { dbCollection } from "../db/server";
-import { user } from "../db/Mockup";
+
 import bcrypt from "bcrypt";
 
 export const register = async (body: any) => {

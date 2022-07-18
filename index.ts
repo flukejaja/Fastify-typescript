@@ -12,8 +12,11 @@ import { insertStock } from "./account/inputStock";
 import { editStock } from "./account/editStock";
 import { ShowVariation } from "./account/ShowVariations";
 import { delAttribute } from "./account/delAttribute";
-
 app.register(require("@fastify/cors"));
+
+app.get("/" , (req,reply) =>{
+  reply.send("Sever is ready");
+})
 
 // Loging - register user
 app.post("/login", async (request, reply) => {
@@ -124,7 +127,8 @@ app.listen({ port: 5000 }, (err, address) => {
   console.log(`Server listening at ${address}`);
 });
 
-import {fs,pump} from './Fastify/app';
+import {pump} from './Fastify/app';
+const fs = require('fs')
 app.register(require('@fastify/multipart'))
 
 app.post('/uploads',{ preHandler: [verifyMiddleware] },async (req:any, reply:any) => {
@@ -133,4 +137,10 @@ app.post('/uploads',{ preHandler: [verifyMiddleware] },async (req:any, reply:any
   if(!data){return {message: 'Error uploading file', error: true}}
   console.log(data.filename)
   reply.send('Success! import photos = '+data.filename)
+})
+
+app.get('/image' , async (req:any, reply:any) => {
+const buffer = fs.readFileSync('./uploads/night-ocean-landscape-full-moon-stars-shine_107791-7397.webp')
+reply.type('image/jpg')
+reply.send(buffer)
 })
