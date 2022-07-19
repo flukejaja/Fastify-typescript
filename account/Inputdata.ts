@@ -2,7 +2,7 @@ import { mockup } from "../db/Mockup";
 import { dbPrame } from "../db/server";
 
 export const inputdata = async (body: any) => {
-  const result = await dbPrame.insertOne(mockup);
+  const result = await dbPrame.insertOne(body);
   console.log("result => ", result);
   if (!result) {
     return { success: false };

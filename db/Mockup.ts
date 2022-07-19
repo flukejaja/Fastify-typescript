@@ -33,16 +33,8 @@ export interface mockupFluck {
   Toggle: boolean;
 };
 export interface userMock {
-  username: string;
+  email :string;
   password: string;
-};
-export const user: userMock = {
-  username: "test",
-  password: "1234",
-};
-export const user1: userMock = {
-  username: "test1",
-  password: "1234",
 };
 export const Fluck:mockupFluck = {
   attributeName: "asdf",

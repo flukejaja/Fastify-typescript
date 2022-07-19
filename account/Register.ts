@@ -6,7 +6,7 @@ export const register = async (body: any) => {
   const hash = await bcrypt.hash(body.password, 10);
   console.log(hash);
   const result = await dbCollection.insertOne({
-    username: body.username,
+    email: body.email,
     password: hash,
   });
   console.log("result => ", result);
@@ -15,7 +15,7 @@ export const register = async (body: any) => {
   }
   const results = {
     success: true,
-    username: body.username,
+    email: body.email,
     data: result,
   };
   return results;

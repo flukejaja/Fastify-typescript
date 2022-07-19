@@ -35,7 +35,7 @@ app.post(
   "/inputuser",
   { preHandler: [verifyMiddleware] },
   async (request, reply) => {
-    const body = mockup;
+    const body = request.body;
     console.log(body);
     const results = await inputdata(body);
     reply.send(results);

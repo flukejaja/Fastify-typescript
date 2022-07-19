@@ -4,9 +4,9 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
 export const login = async (body: userMock) => {
-  const { username, password } = body;
+  const { email, password } = body;
   const result = await dbCollection.findOne({
-    username: username,
+    email: email,
   });
   if (!result) {
     return { success: false, message: "Couldn't find user" };
@@ -23,7 +23,7 @@ export const login = async (body: userMock) => {
   }
   const results = {
     success: true,
-    username: username,
+    email: email,
     password: password,
     token: token,
   };

@@ -1,7 +1,7 @@
-import { dbFluck } from "../db/server";
+import { dbUploads } from "../db/server";
 
 export const insertUploads = async (body: any) => {
-    const result = await dbFluck.insertOne(body);
+    const result = await dbUploads.insertOne(body);
     console.log("Success add 1 Stock");
     console.log("result => ", result);
     if (!result) {
