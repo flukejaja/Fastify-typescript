@@ -8,3 +8,4 @@ export const dbPrame = db.collection("dbPrame");
 export const dbTop = db.collection("dbTop");
 export const dbFluck = db.collection("dbFluck");
 export const dbUploads = db.collection("dbuploads");
+export const dbMock = db.collection("dbmock");

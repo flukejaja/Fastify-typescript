@@ -1,7 +1,7 @@
 import { mockupStock } from "../db/Mockup";
 import { dbTop } from "../db/server";
 
-export const editStock = async (body: mockupStock) => {
+export const editStock = async (body: any) => {
     const { item } = body;
     // console.log(item)
     const result = await dbTop.updateOne({item},{$set: body});

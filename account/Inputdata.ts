@@ -1,4 +1,3 @@
-import { mockup } from "../db/Mockup";
 import { dbPrame } from "../db/server";
 
 export const inputdata = async (body: any) => {
