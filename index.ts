@@ -1,12 +1,5 @@
 import { app } from "./Fastify/app";
-import {
-  userMock,
-  mockupFluck,
-  Fluck,
-  mockupFortop,
-  Stock,
-  mockupStock,
-} from "./db/Mockup";
+import { userMock } from "./db/Mockup";
 import { register } from "./account/Register";
 import { login } from "./account/Login";
 import { inputdata } from "./account/Inputdata";
@@ -50,10 +43,10 @@ app.post("/register", async (request, reply) => {
 //updateMockupDB
 app.post("/updatedb", async (request, reply) => {
   try {
-    const body =  await request.body
+    const body = await request.body;
     console.log(request.body);
     const connect = await updateMockup(body);
-    reply.send(connect)
+    reply.send(connect);
   } catch (error) {
     reply.send("error: " + error);
   }
@@ -89,15 +82,19 @@ app.get(
   }
 );
 // dashboard db Prame
-app.get("/dashboardPrame", { preHandler: [verifyMiddleware] }, async (request, reply)=>{
-  try {
-    const results = await ShowdbPrame();
-    console.log("get dashboardPrame");
-    reply.send(results);
-  } catch (error) {
-    reply.send("error: " + error);
+app.get(
+  "/dashboardPrame",
+  { preHandler: [verifyMiddleware] },
+  async (request, reply) => {
+    try {
+      const results = await ShowdbPrame();
+      console.log("get dashboardPrame");
+      reply.send(results);
+    } catch (error) {
+      reply.send("error: " + error);
+    }
   }
-})
+);
 
 // Top Variations
 app.post(
@@ -209,26 +206,22 @@ import { pump } from "./Fastify/app";
 const fs = require("fs");
 app.register(require("@fastify/multipart"));
 
-app.post(
-  "/uploads",
-  async (req: any, reply: any) => {
-    try {
-      const data = await req.file();
-      await pump(data.file, fs.createWriteStream(`uploads/${data.filename}`));
-      if (!data) {
-        return { message: "Error uploading file", error: true };
-      }
-      const body = data.filename;
-      await insertUploads(body);
-      console.log(data.filename);
-      console.log("Get uploaded files");
-      reply.send("Success! import photos = " + data.filename);
-      
-    } catch (error) {
-      reply.send("error uploading file: " + error);
+app.post("/uploads", async (req: any, reply: any) => {
+  try {
+    const data = await req.file();
+    await pump(data.file, fs.createWriteStream(`uploads/${data.filename}`));
+    if (!data) {
+      return { message: "Error uploading file", error: true };
     }
+    const body = data.filename;
+    await insertUploads(body);
+    console.log(data.filename);
+    console.log("Get uploaded files");
+    reply.send("Success! import photos = " + data.filename);
+  } catch (error) {
+    reply.send("error uploading file: " + error);
   }
-);
+});
 
 app.get("/image/:imageid", async (req: any, reply: any) => {
   try {
