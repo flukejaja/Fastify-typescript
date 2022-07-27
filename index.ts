@@ -15,6 +15,9 @@ import { delAttribute } from "./account/delAttribute";
 import { insertUploads } from "./account/inputUploads";
 import { updateMockup } from "./account/updateMockup";
 import { ShowdbPrame } from "./account/showdbPrame";
+import { pump,fs } from "./Fastify/app";
+
+app.register(require("@fastify/multipart"));
 app.register(require("@fastify/cors"));
 
 app.get("/", (req, reply) => {
@@ -201,10 +204,6 @@ app.listen({ port: 5000 }, (err, address) => {
   }
   console.log(`Server listening at ${address}`);
 });
-
-import { pump } from "./Fastify/app";
-const fs = require("fs");
-app.register(require("@fastify/multipart"));
 
 app.post("/uploads", async (req: any, reply: any) => {
   try {

@@ -1,8 +1,14 @@
 import { dbMock } from "../db/server";
 
 export const updateMockup = async (body:any) =>{
-    console.log(body.id);
-    const update = await dbMock.updateOne({id:body.id},{$set:{name:body.name}})
-    console.log("result updated successfully = "+JSON.stringify(update));
-    return update;
+   try {
+     const update = await dbMock.updateOne({id:body.id},{$set:{name:body.name}})
+     if(!update){
+         return { success: false, message: "Couldn't find" };
+       }
+     console.log("result updated successfully = "+JSON.stringify(update));
+     return update;
+   } catch (error) {
+    return { success: false, message: "Couldn't update" };
+   }
 }
