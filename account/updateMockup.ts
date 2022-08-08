@@ -1,6 +1,7 @@
+import { mockup } from "../db/Mockup";
 import { dbMock } from "../db/server";
 
-export const updateMockup = async (body:any) =>{
+export const updateMockup = async (body:mockup) =>{
    try {
      const update = await dbMock.updateOne({id:body.id},{$set:{name:body.name}})
      if(!update){

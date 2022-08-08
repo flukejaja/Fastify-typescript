@@ -1,6 +1,7 @@
+import { mockupTop } from "../db/Mockup";
 import { dbTop } from "../db/server";
 
-export const ShowVariation = async (body:any) => {
+export const ShowVariation = async (body:mockupTop) => {
   try {
     const db = await dbTop.findOne({body});
     if(!db){

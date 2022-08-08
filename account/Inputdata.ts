@@ -1,6 +1,7 @@
+import { mockupPrame } from "../db/Mockup";
 import { dbPrame } from "../db/server";
 
-export const inputdata = async (body: any) => {
+export const inputdata = async (body: mockupPrame) => {
   try {
     const result = await dbPrame.insertOne(body);
     console.log("result => ", result);

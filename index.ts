@@ -1,5 +1,12 @@
-import { app } from "./Fastify/app";
-import { userMock } from "./db/Mockup";
+import { app, pump, fs } from "./Fastify/app";
+import {
+  userMock,
+  mockupPrame,
+  mockupTop,
+  mockupStock,
+  mockupFluck,
+  mockup
+} from "./db/Mockup";
 import { register } from "./account/Register";
 import { login } from "./account/Login";
 import { inputdata } from "./account/Inputdata";
@@ -15,12 +22,8 @@ import { delAttribute } from "./account/delAttribute";
 import { insertUploads } from "./account/inputUploads";
 import { updateMockup } from "./account/updateMockup";
 import { ShowdbPrame } from "./account/showdbPrame";
-import { pump,fs } from "./Fastify/app";
 
-app.register(require("@fastify/multipart"));
-app.register(require("@fastify/cors"));
-
-app.get("/", (req, reply) => {
+app.get("/", (_req, reply) => {
   reply.send("Sever is ready");
 });
 
@@ -46,7 +49,7 @@ app.post("/register", async (request, reply) => {
 //updateMockupDB
 app.post("/updatedb", async (request, reply) => {
   try {
-    const body = await request.body;
+    const body = request.body as mockup;
     console.log(request.body);
     const connect = await updateMockup(body);
     reply.send(connect);
@@ -61,7 +64,7 @@ app.post(
   { preHandler: [verifyMiddleware] },
   async (request, reply) => {
     try {
-      const body = request.body;
+      const body = request.body as mockupPrame;
       console.log(body);
       const results = await inputdata(body);
       reply.send(results);
@@ -74,7 +77,7 @@ app.post(
 app.get(
   "/dashboard",
   { preHandler: [verifyMiddleware] },
-  async (request, reply) => {
+  async (_request, reply) => {
     try {
       const results = await dashboard();
       console.log("get dashboard");
@@ -88,7 +91,7 @@ app.get(
 app.get(
   "/dashboardPrame",
   { preHandler: [verifyMiddleware] },
-  async (request, reply) => {
+  async (_request, reply) => {
     try {
       const results = await ShowdbPrame();
       console.log("get dashboardPrame");
@@ -105,7 +108,7 @@ app.post(
   { preHandler: [verifyMiddleware] },
   async (request, reply) => {
     try {
-      const body = request.body;
+      const body = request.body as mockupTop;
       console.log(body);
       const results = await insertVariation(body);
       reply.send(results);
@@ -119,7 +122,7 @@ app.post(
   { preHandler: [verifyMiddleware] },
   async (request, reply) => {
     try {
-      const body = request.body;
+      const body = request.body as mockupStock;
       console.log(body);
       const results = await insertStock(body);
       reply.send(results);
@@ -133,7 +136,7 @@ app.post(
   { preHandler: [verifyMiddleware] },
   async (request, reply) => {
     try {
-      const body = request.body;
+      const body = request.body as mockupStock;
       const results = await editStock(body);
       reply.send(results);
     } catch (error) {
@@ -146,7 +149,7 @@ app.post(
   { preHandler: [verifyMiddleware] },
   async (request, reply) => {
     try {
-      const body = request.body;
+      const body = request.body as mockupTop;
       const results = await ShowVariation(body);
       console.log(results);
       reply.send(results);
@@ -162,7 +165,7 @@ app.post(
   { preHandler: [verifyMiddleware] },
   async (request, reply) => {
     try {
-      const body = request.body;
+      const body = request.body as mockupFluck;
       const results = await insertAttribute(body);
       reply.send(results);
     } catch (error) {
@@ -175,7 +178,7 @@ app.post(
   { preHandler: [verifyMiddleware] },
   async (request, reply) => {
     try {
-      const body = request.body;
+      const body = request.body as mockupFluck;
       const results = await showAttribute(body);
       console.log(results);
       reply.send(results);
@@ -189,7 +192,7 @@ app.post(
   { preHandler: [verifyMiddleware] },
   async (request, reply) => {
     try {
-      const body = request.body;
+      const body = request.body as mockupFluck;
       const results = await delAttribute(body);
       reply.send(results);
     } catch (error) {
@@ -209,9 +212,6 @@ app.post("/uploads", async (req: any, reply: any) => {
   try {
     const data = await req.file();
     await pump(data.file, fs.createWriteStream(`uploads/${data.filename}`));
-    if (!data) {
-      return { message: "Error uploading file", error: true };
-    }
     const body = data.filename;
     await insertUploads(body);
     console.log(data.filename);

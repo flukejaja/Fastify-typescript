@@ -5,3 +5,5 @@ export const path = require('path')
 export const { pipeline } = require('stream')
 export const pump = util.promisify(pipeline)
 export const fs = require("fs");
+app.register(require("@fastify/multipart"));
+app.register(require("@fastify/cors"));
